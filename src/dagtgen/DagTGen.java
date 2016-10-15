@@ -111,6 +111,7 @@ public class DagTGen {
                 nodeAtLevel[h] = 1;
             }
             else{
+                
                 System.out.print("Level No : "+h+"\t width : ");
                 do{widthOfDag = (int)Math.abs((rand.nextDouble()*10)-5 + (Math.sqrt(task)*alpha));
                 }while(widthOfDag==1 || widthOfDag < 1);
@@ -157,18 +158,18 @@ public class DagTGen {
         if (sumOfArray(nodeAtLevel) < task) {
             System.out.println("CASE 1 # LESSER");
             addcounter = task - (sumOfArray(nodeAtLevel));
-            System.out.println("Add loop counter : "+addcounter);    
+//            System.out.println("Add loop counter : "+addcounter);    
             if (heightOfDag == 3) {
-                System.out.println("Height is 3");
+//                System.out.println("Height is 3");
                 for (int i = 0; i < addcounter; i++) {
                     nodeAtLevel[1]++;
                 }
             }
             else if(heightOfDag!=3){
-                System.out.println("Height is not 3 . Select "+addcounter+" random levels");
+//                System.out.println("Height is not 3 . Select "+addcounter+" random levels");
                 for(int j=0;j<addcounter;j++){
                     randomLevelSelection = randomNumber(heightOfDag - 2);
-                    System.out.println(j+" random Level Selection : "+randomLevelSelection);
+//                    System.out.println(j+" random Level Selection : "+randomLevelSelection);
                     nodeAtLevel[randomLevelSelection]++;
                 }
             }
@@ -177,13 +178,14 @@ public class DagTGen {
         } else if (sumOfArray(nodeAtLevel) > task) {
             System.out.println("CASE 2 # GREATER");
             minuscounter = sumOfArray(nodeAtLevel)-task;
-            System.out.println("total deletion to be done = "+minuscounter);
+//            System.out.println("total deletion to be done = "+minuscounter);
             for(int s=0;s<minuscounter;s++){
-                do{randomLevelSelection = randomNumber(heightOfDag - 2);
-                }while(nodeAtLevel[randomLevelSelection]==1);
-                
-                System.out.println(s+" random Level Selection : "+randomLevelSelection);
-                nodeAtLevel[randomLevelSelection]--;
+//                do{randomLevelSelection = randomNumber(heightOfDag - 2);
+//                }while(nodeAtLevel[randomLevelSelection]==1);
+//                
+//                System.out.println("Maximum nodes at level :"+maxIndex(nodeAtLevel)); 
+//                System.out.println(s+" random Level Selection : "+randomLevelSelection);
+                nodeAtLevel[maxIndex(nodeAtLevel)]--;
             }
         } else if (sumOfArray(nodeAtLevel) == task) {
             System.out.println("CASE 3 # ALL EQUAL");
@@ -191,7 +193,7 @@ public class DagTGen {
         }
         
         
-
+//
 //        do{
 //            for(int j=1;j<(nodeAtLevel.length-1);j++){
 //            System.out.print("nodeAtLevel = "+nodeAtLevel[j]+" = ");
@@ -231,10 +233,34 @@ public class DagTGen {
 //        .exec("rundll32 url.dll,FileProtocolHandler D:\\MyFiles\\Softwares\\briss-0.9\\briss-0.9\\briss-0.9.exe");
         
         for(int h=0;h<nodeAtLevel.length;h++){
-            System.out.println("new level nodes : "+nodeAtLevel[h]);
+            System.out.println("No of Nodes at Level "+h+" : "+nodeAtLevel[h]);
         }
         
         System.out.println("New Total : "+sumOfArray(nodeAtLevel));
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+//        
+        int[][] levelNumOfNode = new int[task-1][task-1];
+        int nodecounter = 0;
+        for(int x=0;x<task;x++){
+            for(int y=0;y<nodeAtLevel[x];y++){
+                levelNumOfNode[x][y] = nodecounter++;
+                System.out.println("levelNumOfNode["+x+"]["+y+"] = "+levelNumOfNode[x][y]);
+            }
+        }
+        
+        
+        
+        
+        
+//        int[][] nodeAtMlevels = new int[task][task];
+//        for(int x=0;x<task;x++){
+//            for(int y=0;y<task;y++){
+//                if(x>=y){nodeAtMlevels[x][y] = 1;}
+//                System.out.print(nodeAtMlevels[x][y]);
+//            }
+//        }
+        
+        
         System.out.println("Done.");
     }
 
@@ -260,5 +286,16 @@ public class DagTGen {
            sum += A[i];   // either sum = sum + ... or sum += ..., but not both
            i++;}
         return sum;// You need to increment the index at the end of the loop.   }
+    }
+    
+    public static int maxIndex(int[] array) {
+        int largest = array[0], index = 0;
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] >= largest) {
+                largest = array[i];
+                index = i;
+            }
+        }
+        return index;
     }
 }

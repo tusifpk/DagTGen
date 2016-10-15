@@ -12,7 +12,7 @@ package dagtgen;
 public class Matrix {
     private final int M;             // number of rows
     private final int N;             // number of columns
-    private final double[][] data;   // M-by-N array
+    public static double[][] data;   // M-by-N array
     public static double makespan=0.0;
     //rivate final static int k;
     // create M-by-N matrix of 0's
